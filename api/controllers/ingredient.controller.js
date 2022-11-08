@@ -29,6 +29,7 @@ function deleteIngredient(req, res) {
     Ingredient.findByIdAndDelete(req.arams.id)
         .then((result) => res.json(result))
         .catch((err) => res.json(err))
+        
 }
 
 module.exports = {

@@ -35,17 +35,14 @@ function getRecipeByDiet (req,res){
          .then((result) => res.json(result))
         .catch((err) => res.json(err))
 }
-/*
-function getRecipeByDiet(req, res) {
-    Recipe
-        .find(req.query)
-        .then(recipe => {
-            const diet = recipe.filter (element => element.diet)
-            console.log(diet)
-            res.json(diet)})
+
+function getRecipeByIngredients(req, res) {
+    Recipe.find(req.query) 
+         .then((result) => res.json(result))
         .catch((err) => res.json(err))
+    
 }
-*/
+
 
 
 
@@ -56,5 +53,6 @@ module.exports = {
     createRecipe,
     updateRecipe,
     deleteRecipe,
-    getRecipeByDiet
+    getRecipeByDiet,
+    getRecipeByIngredients
 }
