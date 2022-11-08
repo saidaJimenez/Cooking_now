@@ -13,7 +13,7 @@ function getUser(req, res) {
     Users
         .findById(req.params.id)
         .then(response => res.json(response))
-        .catch(err => hadleError(err, res))
+        .catch((err) => res.json(err))
 }
 
 function createUser(req, res) {
@@ -28,7 +28,7 @@ function updateUser(req, res) {
         .catch((err) => res.json(err));
 }
 function deleteUser(req, res) {
-    Users.findByIdAndDelete(req.arams.id)
+    Users.findByIdAndDelete(req.params.id)
         .then((result) => res.json(result))
         .catch((err) => res.json(err))
 }

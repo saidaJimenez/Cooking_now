@@ -3,7 +3,7 @@ const Recipe = require('../models/Recipe.model')
 
 function getAllRecipes(req, res) {
     Recipe
-        .find(req.query)
+        .find()
         .then((recipes) => res.json(recipes))
         .catch((err) => res.json(err))
 }
@@ -11,7 +11,7 @@ function getRecipe(req, res) {
     Recipe
         .findById(req.params.id)
         .then(response => res.json(response))
-        .catch(err => hadleError(err, res))
+        .catch((err) => res.json(err))
 }
 
 function createRecipe(req, res) {
@@ -25,15 +25,36 @@ function updateRecipe(req, res) {
         .catch((err) => res.json(err));
 }
 function deleteRecipe(req, res) {
-    Recipe.findByIdAndDelete(req.arams.id)
+    Recipe.findByIdAndDelete(req.params.id)
         .then((result) => res.json(result))
         .catch((err) => res.json(err))
 }
+
+function getRecipeByDiet (req,res){
+    Recipe.find(req.query) 
+         .then((result) => res.json(result))
+        .catch((err) => res.json(err))
+}
+/*
+function getRecipeByDiet(req, res) {
+    Recipe
+        .find(req.query)
+        .then(recipe => {
+            const diet = recipe.filter (element => element.diet)
+            console.log(diet)
+            res.json(diet)})
+        .catch((err) => res.json(err))
+}
+*/
+
+
+
 
 module.exports = {
     getAllRecipes,
     getRecipe,
     createRecipe,
     updateRecipe,
-    deleteRecipe
+    deleteRecipe,
+    getRecipeByDiet
 }
