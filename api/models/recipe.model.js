@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+
+
 const recipeSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -15,11 +17,13 @@ const recipeSchema = new mongoose.Schema({
         required: true,
         enum: ["primer plato", "segundo plato", "aperitivo", "postre", "salsa"]
     },
-    ingredients: {
-        type: [{quantity: String, name:String}],
-        required: true
-    },
-
+    ingredients:[{
+       quantity : String,
+       ingredient : {
+        type : mongoose.Schema.Types.ObjectId,
+        ref:'ingredient'
+       }
+    }],
     time: {
         type: String,
         required: true
