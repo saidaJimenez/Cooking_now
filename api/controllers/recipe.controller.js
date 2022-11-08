@@ -1,5 +1,5 @@
-const Recipe = require('../models/Recipe.model')
-
+const Recipe = require('../models/recipe.model')
+const Ingredient = require('../models/ingredient.model')
 
 function getAllRecipes(req, res) {
     Recipe
@@ -36,27 +36,64 @@ function getRecipeByDiet (req,res){
         .catch((err) => res.json(err))
 }
 
-function getRecipeByIngredients(req, res) {
-    Recipe.find(req.query) 
-         .then((result) => res.json(result))
-        .catch((err) => res.json(err))
+/*
+async function getRecipeByIngredients(req, res) {
+    try{ const recipes = await Recipe.find().populate('ingredients')
+        let result =[]
+        recipes.forEach(recipe =>{
+            recipe.ingredients.forEach(ingredient =>{
+        if ( ingredient.name === req.query.name)
+        result.push(recipe)
+
+
+            }) 
+
+            
+        })}
+        catch(err){ res.json(err)}
+        
     
 }
-function getRecipeByIngredientId(req, res) {
-    RecipeModel.findById(req.query)
+*/
+/*function getRecipeByIngredientId(req, res) {
+    Ingredient.findOne({name: req.params.name})
+        .populate('ingredient')
       .then(recipe => {
-        const ingredient = recipe.ingredients.id(req.query)
+        const ingredient = recipe.ingredient.name
         res.json(ingredient)
       })
       .catch((err) => res.json(err))
   }
+  */
+ /*function getRecipeByIngredientId(req, res){
+      Recipe.findOne({ingredients:{ingredient:req.params.ingredient}})
+          .populate('ingredients')
+          .then(recipe => {
+            const ingredient = recipe.ingredients.ingredient.name
+            res.json(ingredient)
+          })
+          .catch((err) => res.json(err))
+
+  }*/
+
   function getRecipeByDish(req, res) {
     Recipe
         .find({dishType:req.params.dish})
         .then((recipe) => res.json(recipe))
         .catch((err) => res.json(err));
 }
-
+function addComments(req, res){
+    Recipe.findById(req.params.id)
+    .then(recipe => {
+        if (!recipe.comments){recipe.comments =[]}
+        recipe.comments.push(req.body)
+        recipe.save()
+              .then(recipe => {
+                 res.json(recipe)
+              })
+    })
+    .catch((err)=> res.json(err))
+}
 
 
 module.exports = {
@@ -67,6 +104,6 @@ module.exports = {
     deleteRecipe,
     getRecipeByDiet,
     getRecipeByIngredients,
-    getRecipeByIngredientId,
+    //getRecipeByIngredientId,
     getRecipeByDish
 }

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-
+const commentSchema = require ('./comments.model')
 
 const recipeSchema = new mongoose.Schema({
     name: {
@@ -36,7 +36,8 @@ const recipeSchema = new mongoose.Schema({
     preparation: {
         type: String,
         required: true
-    }
+    },
+    comments:[commentSchema]
 })
 
 const recipeModel = mongoose.model('recipe', recipeSchema);
