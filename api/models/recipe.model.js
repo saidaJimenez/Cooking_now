@@ -12,7 +12,7 @@ const recipeSchema = new mongoose.Schema({
         enum: ['vegano', 'vegetariano', 'omnivoro'],
         required: true
     },
-    dishtype: {
+    dishType: {
         type: String,
         required: true,
         enum: ["primer plato", "segundo plato", "aperitivo", "postre", "salsa"]

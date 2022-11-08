@@ -7,6 +7,7 @@ const {
     getRecipeByDiet,
     getRecipeByIngredients,
     getRecipeByIngredientId,
+    getRecipeByDish,
     createRecipe,
     updateRecipe,
     deleteRecipe
@@ -19,7 +20,8 @@ const {
     authUser} = require ("../utils")*/
 
 router.get("/",getAllRecipes)
-router.get("/diet/:diet",getRecipeByDiet)
+router.get('/dish/:dish',getRecipeByDish)
+//router.get("/diet/:diet",getRecipeByDiet)
 router.get("/ingredients",getRecipeByIngredients)
 router.get("/ingredientsid",getRecipeByIngredientId)
 router.get("/:id",getRecipe)

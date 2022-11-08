@@ -50,7 +50,12 @@ function getRecipeByIngredientId(req, res) {
       })
       .catch((err) => res.json(err))
   }
-
+  function getRecipeByDish(req, res) {
+    Recipe
+        .find({dishType:req.params.dish})
+        .then((recipe) => res.json(recipe))
+        .catch((err) => res.json(err));
+}
 
 
 
@@ -62,5 +67,6 @@ module.exports = {
     deleteRecipe,
     getRecipeByDiet,
     getRecipeByIngredients,
-    getRecipeByIngredientId
+    getRecipeByIngredientId,
+    getRecipeByDish
 }
