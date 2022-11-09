@@ -14,7 +14,7 @@ const {
     authUser
 } = require ("../utils")
 
-router.get("/",getAllUsers)
+router.get("/",authUser,authAdmin,getAllUsers)
 router.get("/:id",getUser)
 router.post("/",createUser)
 router.put("/:id",authUser,authAdmin,updateUser)
