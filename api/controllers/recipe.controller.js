@@ -36,45 +36,35 @@ function getRecipeByDiet (req,res){
         .catch((err) => res.json(err))
 }
 
-/*
+// Query: ingredients me da los ingredientes que quiero buscar
 async function getRecipeByIngredients(req, res) {
-    try{ const recipes = await Recipe.find().populate('ingredients')
-        let result =[]
-        recipes.forEach(recipe =>{
-            recipe.ingredients.forEach(ingredient =>{
-        if ( ingredient.name === req.query.name)
-        result.push(recipe)
-
-
-            }) 
-
-            
-        })}
-        catch(err){ res.json(err)}
-        
-    
-}
-*/
-/*function getRecipeByIngredientId(req, res) {
-    Ingredient.findOne({name: req.params.name})
-        .populate('ingredient')
-      .then(recipe => {
-        const ingredient = recipe.ingredient.name
-        res.json(ingredient)
-      })
-      .catch((err) => res.json(err))
+    try {
+      // Separamos ingredientes de la query
+      const ingredients = req.query.ingredients.split("&");
+  
+      // Construimos un array de objectIds de ingredientes
+      const ingredientsIds = [];
+      for (let i = 0; i < ingredients.length; i++) {
+        let ing = await Ingredient.findOne({ name: ingredients[i] });
+        if (ing) {
+          ingredientsIds.push(mongoose.Types.ObjectId(ing.id));
+        }
+      }
+  
+      // Buscamos las recetas que tengan algun ingredientId dentro de su array de ingredients
+      let recipes = await Recipe.find().elemMatch("ingredients", {
+        ingredient: { $in: ingredientsIds },
+      }).populate('ingredients.ingredient');
+  
+      return res.json(JSON.parse(JSON.stringify(recipes)));
+    } catch (error) {
+      console.error(err);
+      return res.json(err);
+    }
   }
-  */
- /*function getRecipeByIngredientId(req, res){
-      Recipe.findOne({ingredients:{ingredient:req.params.ingredient}})
-          .populate('ingredients')
-          .then(recipe => {
-            const ingredient = recipe.ingredients.ingredient.name
-            res.json(ingredient)
-          })
-          .catch((err) => res.json(err))
+    
 
-  }*/
+  
 
   function getRecipeByDish(req, res) {
     Recipe
@@ -104,6 +94,5 @@ module.exports = {
     deleteRecipe,
     getRecipeByDiet,
     getRecipeByIngredients,
-    //getRecipeByIngredientId,
     getRecipeByDish
 }

@@ -6,7 +6,6 @@ const {
     getRecipe,
     getRecipeByDiet,
     getRecipeByIngredients,
-   // getRecipeByIngredientId,
     getRecipeByDish,
     createRecipe,
     updateRecipe,
@@ -23,7 +22,6 @@ router.get("/",getAllRecipes)
 router.get('/dish/:dish',getRecipeByDish)
 router.get("/diet/:diet",getRecipeByDiet)
 router.get("/ingredients",getRecipeByIngredients)
-//router.get("/ingredientsid/:ing",getRecipeByIngredientId)
 router.get("/:id",getRecipe)
 router.post("/",createRecipe)
 router.put("/:id",updateRecipe)
