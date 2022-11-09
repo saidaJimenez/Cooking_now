@@ -11,7 +11,7 @@ const { authUser } = require('../utils')
 router.use("/users",userRouter)
 router.use("/recipes",recipeRouter)
 router.use("/ingredients", ingredientRouter)
-router.use("/auth", authRouter)// acceso para poder usar signing y login
+router.use("/auth", authRouter) // acceso para poder usar signup y login
 
 
 //acceso y la funcion para acceder al profile 
