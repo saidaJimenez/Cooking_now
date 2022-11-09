@@ -9,14 +9,14 @@ const {
 } = require("../controllers/ingredient.controller")
 
 
-/*const {
+const {
     authAdmin,
-    authIngredient
+    authUser
 } = require ("../utils")
-*/
-router.get("/",getAllIngredients)
-router.get("/:id",getIngredient)
-router.post("/",createIngredient)
-router.put("/:id",updateIngredient)
-router.delete("/:id",deleteIngredient)
+
+router.get("/",authUser,getAllIngredients)
+router.get("/:id",authUser,getIngredient)
+router.post("/",authUser,authAdmin,createIngredient)
+router.put("/:id",authUser,authAdmin,updateIngredient)
+router.delete("/:id",authUser,authAdmin,deleteIngredient)
 module.exports = router

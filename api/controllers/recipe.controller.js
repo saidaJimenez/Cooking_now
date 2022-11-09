@@ -1,3 +1,4 @@
+const mongoose = require('mongoose')
 const Recipe = require('../models/recipe.model')
 const Ingredient = require('../models/ingredient.model')
 
@@ -13,23 +14,6 @@ function getRecipe(req, res) {
         .then(response => res.json(response))
         .catch((err) => res.json(err))
 }
-
-function createRecipe(req, res) {
-    Recipe.create(req.body)
-        .then((recipe) => res.json(recipe))
-        .catch((err) => res.json(err))
-}
-function updateRecipe(req, res) {
-    Recipe.findByIdAndUpdate(req.params.id, req.body)
-        .then((result) => res.json(result))
-        .catch((err) => res.json(err));
-}
-function deleteRecipe(req, res) {
-    Recipe.findByIdAndDelete(req.params.id)
-        .then((result) => res.json(result))
-        .catch((err) => res.json(err))
-}
-
 function getRecipeByDiet (req,res){
     Recipe.find({diet: req.params.diet}) 
          .then((result) => res.json(result))
@@ -58,13 +42,9 @@ async function getRecipeByIngredients(req, res) {
   
       return res.json(JSON.parse(JSON.stringify(recipes)));
     } catch (error) {
-      console.error(err);
       return res.json(err);
     }
   }
-    
-
-  
 
   function getRecipeByDish(req, res) {
     Recipe
@@ -72,18 +52,25 @@ async function getRecipeByIngredients(req, res) {
         .then((recipe) => res.json(recipe))
         .catch((err) => res.json(err));
 }
-function addComments(req, res){
-    Recipe.findById(req.params.id)
-    .then(recipe => {
-        if (!recipe.comments){recipe.comments =[]}
-        recipe.comments.push(req.body)
-        recipe.save()
-              .then(recipe => {
-                 res.json(recipe)
-              })
-    })
-    .catch((err)=> res.json(err))
+
+function createRecipe(req, res) {
+    Recipe.create(req.body)
+        .then((recipe) => res.json(recipe))
+        .catch((err) => res.json(err))
 }
+function updateRecipe(req, res) {
+    Recipe.findByIdAndUpdate(req.params.id, req.body)
+        .then((result) => res.json(result))
+        .catch((err) => res.json(err));
+}
+function deleteRecipe(req, res) {
+    Recipe.findByIdAndDelete(req.params.id)
+        .then((result) => res.json(result))
+        .catch((err) => res.json(err))
+}
+
+
+
 
 
 module.exports = {

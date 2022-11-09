@@ -8,15 +8,14 @@ const {
     deleteUser
 } = require("../controllers/user.controller")
 
-
 const {
     authAdmin,
     authUser
 } = require ("../utils")
 
 router.get("/",authUser,authAdmin,getAllUsers)
-router.get("/:id",getUser)
+router.get("/:id",authUser,authAdmin,getUser)
 router.post("/",createUser)
-router.put("/:id",authUser,authAdmin,updateUser)
-router.delete("/:id",deleteUser)
+router.put("/:id",authUser,updateUser)
+router.delete("/:id",authUser,deleteUser)
 module.exports = router

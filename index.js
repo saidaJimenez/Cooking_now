@@ -2,11 +2,12 @@ const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
- require('dotenv').config()
+require('dotenv').config()
 
 const app = express();
 const router = require("./api/routers/router");
 
+//Create funtion DB connection
 const mongooseStart = async () => {
     try {
         await mongoose.connect(

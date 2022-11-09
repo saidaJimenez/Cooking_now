@@ -14,17 +14,17 @@ const {
 } = require("../controllers/recipe.controller")
 
 
-/*const {
+const {
     authAdmin,
-    authUser} = require ("../utils")*/
+    authUser} = require ("../utils")
 
 router.get("/",getAllRecipes)
-router.get('/dish/:dish',getRecipeByDish)
-router.get("/diet/:diet",getRecipeByDiet)
-router.get("/ingredients",getRecipeByIngredients)
-router.get("/:id",getRecipe)
-router.post("/",createRecipe)
-router.put("/:id",updateRecipe)
-router.delete("/:id",deleteRecipe)
+router.get('/dish/:dish',authUser,getRecipeByDish)
+router.get("/diet/:diet",authUser,getRecipeByDiet)
+router.get("/ingredient",authUser,getRecipeByIngredients)
+router.get("/:id",authUser,getRecipe)
+router.post("/",authUser,authAdmin,createRecipe)
+router.put("/:id",authUser,authAdmin,updateRecipe)
+router.delete("/:id",authUser,authAdmin,deleteRecipe)
 
 module.exports = router
