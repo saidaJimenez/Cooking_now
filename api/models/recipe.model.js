@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const commentSchema = require ('./comments.model')
+//const commentSchema = require ('./comments.model')
 
 const recipeSchema = new mongoose.Schema({
     name: {
