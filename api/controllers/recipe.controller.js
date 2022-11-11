@@ -22,8 +22,10 @@ function getRecipeByDiet (req,res){
 //Query: ingredients me da los ingredientes que quiero buscar
 async function getRecipeByIngredients(req, res) {
     try {
-      //Separamos ingredientes que la query
+      // Separamos ingredientes que la query
+      // localhost:3000/api/recipes/ingredients?ingredients=tomate&carne&lechuga
       const ingredients = req.query.ingredients.split("&");
+      // ingredients = ['tomate','carne','lechuga']
   
       //Construimos un array de objectIds de ingredientes
       const ingredientsIds = [];
@@ -33,6 +35,8 @@ async function getRecipeByIngredients(req, res) {
           ingredientsIds.push(mongoose.Types.ObjectId(ing.id));
         }
       }
+      // ingredientsIds = ['objectIdTomate','objectIdCarne','objectIdLechuga']
+
       // Buscamos las recetas que tengan algun ingredientId dentro de su array de ingredients
       let recipes = await Recipe.find().elemMatch("ingredients", {
         ingredient: { $in: ingredientsIds },
