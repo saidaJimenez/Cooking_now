@@ -13,11 +13,14 @@ function getRecipe(req, res) {
         .findById(req.params.id)
         .then(response => res.json(response))
         .catch((err) => res.json(err))
+        .populate('ingredients.ingredient');
 }
 function getRecipeByDiet (req,res){
     Recipe.find({diet: req.params.diet}) 
+    .populate('ingredients.ingredient')
          .then((result) => res.json(result))
         .catch((err) => res.json(err))
+        
 }
 //Query: ingredients me da los ingredientes que quiero buscar
 async function getRecipeByIngredients(req, res) {
