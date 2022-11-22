@@ -11,7 +11,7 @@ async function signup (req, res) {
 
     const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' })
 
-    res.status(200).json({ email: user.email, token }) // token: token
+    res.status(200).json({ email: user.email, token, role: user.role }) // token: token
   } catch (error) {
     res.status(500).send(`Error creating user: ${error}`)
     throw new Error(`Error creating user: ${error}`)
@@ -36,7 +36,7 @@ async function login (req, res) {
 
       const token = jwt.sign({ email: user.email }, process.env.SECRET, { expiresIn: '1h' })
 
-      res.status(200).json({ email: user.email, token })
+      res.status(200).json({ email: user.email, token,  role: user.role  })
     })
   } catch (error) {
     res.status(500).send('Error logging user')
