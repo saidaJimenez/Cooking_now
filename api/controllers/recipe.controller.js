@@ -11,9 +11,10 @@ function getAllRecipes(req, res) {
 function getRecipe(req, res) {
     Recipe
         .findById(req.params.id)
+        .populate('ingredients.ingredient')
         .then(response => res.json(response))
         .catch((err) => res.json(err))
-        .populate('ingredients.ingredient');
+        
 }
 function getRecipeByDiet (req,res){
     Recipe.find({diet: req.params.diet}) 
